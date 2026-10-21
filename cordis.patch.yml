@@ -1,0 +1,26 @@
+# rea MCP：作为插件包的一行插入。
+#
+# 把下面两处路径改成你自己机器上的值（这是唯一需要改的地方）：
+#   command : node 可执行文件（Windows 上通常是 C:\Program Files\nodejs\node.exe）
+#   args[0] : rea-controllers 的入口，npm -g 安装后位于
+#             %APPDATA%\npm\node_modules\rea-agents\scripts\rea.mjs（Windows）
+#             或 /usr/local/lib/node_modules/rea-agents/scripts/rea.mjs（macOS/Linux）
+- insert:
+    # 预检：入口缺失时可自动安装 rea（默认关闭，需显式 autoInstall: true）。
+    - id: rea-preflight
+      name: '@local/dsh-mcp-rea'
+      config:
+        autoInstall: false
+        # entry: 'C:\Users\<you>\AppData\Roaming\npm\node_modules\rea-agents\scripts\rea.mjs'
+    - id: rea-mcp
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: rea
+        transport: stdio
+        command: 'C:\Program Files\nodejs\node.exe'
+        args:
+          - 'C:\Users\<you>\AppData\Roaming\npm\node_modules\rea-agents\scripts\rea.mjs'
+          - mcp
+        # rea 没装/路径不对时：Harness 照常启动，只是不出现任何 mcp__rea__* 工具，
+        # 日志里多一条连接错误。设为 true 则会让整个插件行激活失败。
+        failOnStartupError: false

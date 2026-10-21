@@ -1,0 +1,25 @@
+{
+  "name": "@local/dsh-mcp-rea",
+  "version": "1.0.0",
+  "private": true,
+  "description": "rea 逆向分析 MCP 服务器（可开关的插件包）",
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": ["index.js", "cordis.patch.yml", "locale/*.json", "icon.svg", "README.md", "LICENSE"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3764866839/dsh-mcp-rea.git"
+  },
+  "keywords": ["deepseek-harness", "dsh-plugin", "mcp", "rea", "reverse-engineering"],
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
